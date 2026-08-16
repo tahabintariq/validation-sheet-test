@@ -1,0 +1,40 @@
+{
+  "_note": "Run settings. Edit this file rather than the scripts.",
+
+  "skip": {
+    "insurance": {
+      "enabled": true,
+      "reason": "Client asked to skip insurance companies for now (13 Aug 2026) - the mapping is unsettled.",
+      "how": "Announcements from these companies are still fetched and classified, and they appear in the daily email as SKIPPED. Nothing is written to the sheet for them. Set enabled=false to switch them back on.",
+      "tadawul_codes": [
+        "8010", "8012", "8020", "8030", "8040", "8050", "8060", "8070",
+        "8100", "8120", "8150", "8160", "8170", "8180", "8190", "8200",
+        "8210", "8230", "8240", "8250", "8260", "8270", "8280", "8300",
+        "8310", "8311"
+      ],
+      "codes_note": "The 25 companies in the sheet's 'Insurance' section, plus 8070 Arabian Shield Cooperative Insurance, which sits under 'Small-Cap' in the sheet but is an insurer. NOTE 8313 Rasan is 8xxx but is NOT an insurer (Information Technology) - do not skip it. Never infer insurance from the 8xxx code range.",
+      "also_skip_if_table_looks_like_insurance": true,
+      "table_hint": "An insurer's table has 'Insurance Revenues' and 'Result of Insurance Services' instead of Sales/Revenue and Gross Profit. If those appear for a company not on the list above, skip it and say so in the email rather than guessing."
+    }
+  },
+
+  "annual": {
+    "_what": "Annual announcements report the full year only. Q4 is the full year minus the nine months to 30 September; the second half is the full year minus the six months to 30 June.",
+    "how": "Both figures subtracted come from the company's OWN earlier announcement, fetched at run time - see prior_announcement.py. Nothing is read from the spreadsheet, so there is no setting to tune here.",
+    "why_not_the_sheet": "The sheet's earlier quarters are almost all VLOOKUPs into the Universe feed - measured 16 Aug 2026, 250+ of the 277 quarterly rows have a feed formula in Q1. Subtracting a feed figure from an announcement figure subtracts two different conventions and the result is not a quarter.",
+    "if_the_earlier_announcement_is_missing": "The figure is flagged and reported in the daily email. It is never filled in from the sheet instead."
+  },
+
+  "email": {
+    "_note": "Stage 5a writes a draft to output/05_email.html and does NOT send. Sending is not built - recipients and auto-send vs draft are still open with the client (OPEN_QUESTIONS.md B3). Fill in recipients here when they are agreed; nothing will send until send_email() in stage5_email.py is implemented.",
+    "mode": "draft",
+    "recipients": [],
+    "subject_prefix": "Saudi results"
+  },
+
+  "sheet": {
+    "path": "../Saudi Valuation Sheet AI.xlsx",
+    "tab": "Qtrly Results Updated",
+    "do_not_touch": ["Insurance", "Bank Results", "Quarterly Results", "Universe"]
+  }
+}

@@ -1,0 +1,4 @@
+pipeline/output/
+pipeline/__pycache__/
+pipeline/backups/
+pipeline/tests/
