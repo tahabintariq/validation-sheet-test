@@ -1,8 +1,7 @@
 {
-  "last_announcement_time": "16/08/2026 15:44:53",
+  "last_announcement_time": "17/08/2026 09:51:18",
   "last_announcement_time_note": "Riyadh local time (UTC+3), as published by the site",
-  "last_announcement_id": 97644,
-  "updated_at": "17/08/2026 10:00:00 PKT",
-  "announcements_in_last_run": 23,
-  "_set_by_hand": "Seeded to stand in for a completed Sunday 16 Aug run. 97644 was the last announcement of that day. From here the pipeline resumes normally: each run with --commit advances this file, and the routine pushes it back to the repo so the next run starts where this one stopped."
+  "last_announcement_id": 97657,
+  "updated_at": "17/08/2026 13:59:57 PKT",
+  "announcements_in_last_run": 13
 }
