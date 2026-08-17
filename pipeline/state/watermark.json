@@ -1,8 +1,8 @@
 {
-  "last_announcement_time": "13/08/2026 16:06:42",
+  "last_announcement_time": "16/08/2026 15:44:53",
   "last_announcement_time_note": "Riyadh local time (UTC+3), as published by the site",
-  "last_announcement_id": 97621,
-  "updated_at": "16/08/2026 20:30:00 PKT",
-  "announcements_in_last_run": 0,
-  "_set_by_hand": "Seeded on 16 Aug 2026 to stand in for a completed Thursday run. 97621 (symbol 9640) was the last announcement of Thursday 13 Aug. The id is the tiebreaker for the exact boundary second: announcements at 16:06:42 with an id at or below 97621 are treated as already seen, so this one is not fetched twice."
+  "last_announcement_id": 97644,
+  "updated_at": "17/08/2026 10:00:00 PKT",
+  "announcements_in_last_run": 23,
+  "_set_by_hand": "Seeded to stand in for a completed Sunday 16 Aug run. 97644 was the last announcement of that day. From here the pipeline resumes normally: each run with --commit advances this file, and the routine pushes it back to the repo so the next run starts where this one stopped."
 }

@@ -26,9 +26,10 @@
   },
 
   "email": {
-    "_note": "Stage 5a writes a draft to output/05_email.html and does NOT send. Sending is not built - recipients and auto-send vs draft are still open with the client (OPEN_QUESTIONS.md B3). Fill in recipients here when they are agreed; nothing will send until send_email() in stage5_email.py is implemented.",
+    "_note": "The Python scripts never send. They write output/05_email_payload.json and output/05b_morning_payload.json; whoever holds the mail credentials creates the draft from those. In the cloud routine that is the agent, using the Gmail connector. Later it is expected to be Microsoft Graph sendMail. 'mode' stays 'draft' until the client agrees to auto-send (OPEN_QUESTIONS.md B3).",
     "mode": "draft",
-    "recipients": [],
+    "recipients": ["tahabintariq18@gmail.com"],
+    "morning_recipients": ["tahabintariq18@gmail.com"],
     "subject_prefix": "Saudi results"
   },
 
