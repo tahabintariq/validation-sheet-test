@@ -223,20 +223,29 @@ def render_company(name, block, table):
     hist, actual = periods[:-1], periods[-1]
     keep = len(cols)
 
-    th = f"background:{NAVY};color:#fff;padding:3px 5px;font-weight:600"
+    # Every coloured cell carries bgcolor as well as the CSS. bgcolor is a plain
+    # HTML attribute, so a client that strips style rules cannot remove it. In
+    # Gmail these header cells first arrived as white text on a white background
+    # - the company name, "Historical"/"Actual" and the period labels were all
+    # invisible until you selected the text.
+    ACTUAL_RED = "#7b1f1f"
+    th = f"background-color:{NAVY};color:#fff;padding:3px 5px;font-weight:600"
     td = "padding:2px 5px;border-bottom:1px solid #eee"
-    act = "background:#f6dedb;border-left:1px solid #bbb"
+    act = "background-color:#f6dedb;border-left:1px solid #bbb"
 
     p = [f'<table cellpadding="0" cellspacing="0" style="border-collapse:collapse;'
          f'margin:0 0 18px;font-family:{FONT};font-size:11px;text-align:right;'
          f'width:100%">',
-         f'<tr><td colspan="{keep + 1}" style="{th};text-align:center;font-size:12px">'
-         f'{esc(name)}</td></tr>',
-         f'<tr><td colspan="{len(hist) + 1}" style="{th};text-align:center">Historical</td>'
-         f'<td style="{th};background:#7b1f1f;text-align:center">Actual</td></tr>',
-         f'<tr><td style="{th}"></td>'
-         + "".join(f'<td style="{th}">{esc(x)}</td>' for x in hist)
-         + f'<td style="{th};background:#7b1f1f">{esc(actual)}</td></tr>']
+         f'<tr><td colspan="{keep + 1}" bgcolor="{NAVY}" '
+         f'style="{th};text-align:center;font-size:12px">{esc(name)}</td></tr>',
+         f'<tr><td colspan="{len(hist) + 1}" bgcolor="{NAVY}" '
+         f'style="{th};text-align:center">Historical</td>'
+         f'<td bgcolor="{ACTUAL_RED}" style="{th};background-color:{ACTUAL_RED};'
+         f'text-align:center">Actual</td></tr>',
+         f'<tr><td bgcolor="{NAVY}" style="{th}"></td>'
+         + "".join(f'<td bgcolor="{NAVY}" style="{th}">{esc(x)}</td>' for x in hist)
+         + f'<td bgcolor="{ACTUAL_RED}" style="{th};background-color:{ACTUAL_RED}">'
+         f'{esc(actual)}</td></tr>']
 
     for label, _, _ in LINES:
         vals = table.get(label)

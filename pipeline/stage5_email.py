@@ -173,11 +173,11 @@ S_SUB = f"font-family:{FONT};font-size:13px;color:#666;margin:0 0 18px"
 # repetitions of the same declaration, and the size matters (see FONT above).
 S_TABLE = (f"border-collapse:collapse;width:100%;margin:8px 0 14px;"
            f"font-family:{FONT};font-size:13px")
-S_TH = (f"background:{NAVY};color:#ffffff;text-align:left;padding:5px 8px;"
+S_TH = (f"background-color:{NAVY};color:#ffffff;text-align:left;padding:5px 8px;"
         "font-size:12px;font-weight:600")
 S_TD = "padding:4px 8px;border-bottom:1px solid #e6e6e6;vertical-align:top"
 S_TD_N = S_TD + ";text-align:right;white-space:nowrap"
-ZEBRA = "background:#fafafa"
+ZEBRA = "background-color:#fafafa"
 S_WORK = "font-family:Consolas,Menlo,monospace;font-size:12px;color:#333;white-space:nowrap"
 S_FOOT = (f"font-family:{FONT};margin-top:26px;padding-top:10px;"
           "border-top:1px solid #ddd;color:#888;font-size:12px")
@@ -190,7 +190,7 @@ TONE = {"ok":   ("#e6f4ea", "#136c2e", "#2e8b52"),
 
 def tag(text, kind="ok"):
     bg, fg, _ = TONE[kind]
-    return (f'<span style="background:{bg};color:{fg};padding:1px 7px;'
+    return (f'<span style="background-color:{bg};color:{fg};padding:1px 7px;'
             f'border-radius:9px;font-family:{FONT};font-size:12px;'
             f'font-weight:600">{esc(text)}</span>')
 
@@ -198,7 +198,7 @@ def tag(text, kind="ok"):
 def box(inner, kind="ok"):
     edge = TONE[kind][2]
     return (f'<div style="border-left:4px solid {edge};padding:9px 13px;margin:10px 0;'
-            f'background:#fafafa;font-family:{FONT};font-size:13px">{inner}</div>')
+            f'background-color:#fafafa;font-family:{FONT};font-size:13px">{inner}</div>')
 
 
 def h2(t):
@@ -217,8 +217,13 @@ def table(headers, rows, aligns=None):
     if not rows:
         return ""
     aligns = aligns or [""] * len(headers)
+    # bgcolor as well as the CSS. It is a plain HTML attribute, so a client that
+    # strips or rewrites style rules cannot remove it - and without a background
+    # these header cells are white text on white, which is how they arrived in
+    # Gmail the first time: invisible until you selected them.
     out = [f'<table cellpadding="0" cellspacing="0" style="{S_TABLE}"><tr>'
-           + "".join(f'<th style="{S_TH}">{esc(h)}</th>' for h in headers) + "</tr>"]
+           + "".join(f'<th bgcolor="{NAVY}" style="{S_TH}">{esc(h)}</th>'
+                     for h in headers) + "</tr>"]
     for i, r in enumerate(rows):
         z = f";{ZEBRA}" if i % 2 else ""
         cells = "".join(
